@@ -4,30 +4,34 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
+
 import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class ExampleFileUtils {
 
-    public static JSONObject getJsonFromFile(File inputSource) {
-        JSONParser parser = new JSONParser();
-        try {
-            return (JSONObject) parser.parse(new FileReader(inputSource));
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+    private ExampleFileUtils() {
+        throw new IllegalStateException("Utility class");
     }
 
-    public static File getFileFromResources(String fileName) {
+    public static JSONObject getJsonFromFile(InputStream inputSource) {
+        JSONParser parser = new JSONParser();
+        try {
+            return (JSONObject) parser.parse(new InputStreamReader(inputSource, StandardCharsets.UTF_8));
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return new JSONObject();
+        }
+    }
+
+    public static InputStream getFileFromResources(String fileName) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
-        URL resource = classLoader.getResource(fileName);
-        if (resource != null) {
-            return new File(resource.getFile());
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+        if (inputStream != null) {
+            return inputStream;
         } else {
             throw new IllegalArgumentException("Missing file");
         }

@@ -1,106 +1,85 @@
 package com.example.refactor.model;
 
+import java.util.List;
+
 public class Song {
 
     private String id;
     private String name;
-    private String explicit;
+    private boolean explicit;
     private String playable;
-    private String popularity;
+    private int popularity;
+    private Album album;
+    private List<Artist> artists;
 
-    private String albumId;
-    private String albumType;
-    private String albumName;
-    private String albumReleaseDate;
-    private String albumTotalTracks;
-
-    public SpotifyArtist spotifyArtist;
-
-    public String getId() {
-        return id;
+    private Song(SongBuilder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.explicit = builder.explicit;
+        this.playable = builder.playable;
+        this.popularity = builder.popularity;
+        this.album = builder.album;
+        this.artists = builder.artists;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public static class SongBuilder {
+        private String id;
+        private String name;
+        private boolean explicit;
+        private String playable;
+        private int popularity;
+        private Album album;
+        private List<Artist> artists;
+
+        public SongBuilder id(String id) {
+            this.id = id;
+            return this;
+        }
+        public SongBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+        public SongBuilder explicit(boolean explicit) {
+            this.explicit = explicit;
+            return this;
+        }
+        public SongBuilder playable(String playable) {
+            this.playable = playable;
+            return this;
+        }
+        public SongBuilder popularity(int popularity) {
+            this.popularity = popularity;
+            return this;
+        }
+        public SongBuilder album(Album album) {
+            this.album = album;
+            return this;
+        }
+        public SongBuilder artist(List<Artist> artists) {
+            this.artists = artists;
+            return this;
+        }
+        public Song build() {
+            return new Song(this);
+        }
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public boolean isExplicit() { return explicit; }
+    public String getPlayable() { return playable; }
+    public int getPopularity() { return popularity; }
+    public Album getAlbum() { return album; }
+    public List<Artist> getArtist() { return artists; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getExplicit() {
-        return explicit;
-    }
-
-    public void setExplicit(String explicit) {
-        this.explicit = explicit;
-    }
-
-    public String getPlayable() {
-        return playable;
-    }
-
-    public void setPlayable(String playable) {
-        this.playable = playable;
-    }
-
-    public String getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(String popularity) {
-        this.popularity = popularity;
-    }
-
-    public String getAlbumId() {
-        return albumId;
-    }
-
-    public void setAlbumId(String albumId) {
-        this.albumId = albumId;
-    }
-
-    public String getAlbumType() {
-        return albumType;
-    }
-
-    public void setAlbumType(String albumType) {
-        this.albumType = albumType;
-    }
-
-    public String getAlbumName() {
-        return albumName;
-    }
-
-    public void setAlbumName(String albumName) {
-        this.albumName = albumName;
-    }
-
-    public String getAlbumReleaseDate() {
-        return albumReleaseDate;
-    }
-
-    public void setAlbumReleaseDate(String albumReleaseDate) {
-        this.albumReleaseDate = albumReleaseDate;
-    }
-
-    public String getAlbumTotalTracks() {
-        return albumTotalTracks;
-    }
-
-    public void setAlbumTotalTracks(String albumTotalTracks) {
-        this.albumTotalTracks = albumTotalTracks;
-    }
-
-    public SpotifyArtist getSpotifyArtist() {
-        return spotifyArtist;
-    }
-
-    public void setSpotifyArtist(SpotifyArtist spotifyArtist) {
-        this.spotifyArtist = spotifyArtist;
+    public String getArtistsNames() {
+        StringBuilder names = new StringBuilder();
+        for (int i = 0; i < artists.size(); i++) {
+            names.append(artists.get(i).getName());
+            if (i != artists.size() - 1) {
+                names.append(", ");
+            }
+        }
+        return names.toString();
     }
 }

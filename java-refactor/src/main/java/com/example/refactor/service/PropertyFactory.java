@@ -13,9 +13,13 @@ public class PropertyFactory {
     private static final Logger LOGGER = LoggerFactory.getLogger(PropertyFactory.class);
     private static final String CONFIG_FILE = "config.properties";
 
+    private PropertyFactory() {
+        throw new IllegalStateException("Utility class");
+    }
+
     static {
         properties = new Properties();
-        
+
         try (InputStream inputStream = PropertyFactory.class.getClassLoader().getResourceAsStream(CONFIG_FILE)) {
             properties.load(inputStream);
         } catch (IOException e) {
