@@ -4,15 +4,11 @@ import com.example.refactor.model.StreamingsEnum;
 
 public class SongProcessorFactory {
     public SongProcessor selectStreamingMethod(StreamingsEnum streamingsEnum) {
-        switch (streamingsEnum) {
-            case SPOTIFY:
-                return new SpotifySongProcessor();
-            case YOUTUBE:
-                return new YoutubeSongProcessor();
-            case SOUNDCLOUD:
-                return new SoundcloudSongProcessor();
-            default:
-                return null;
-        }
+        return switch (streamingsEnum) {
+            case SPOTIFY -> new SpotifySongProcessor();
+            case YOUTUBE -> new YoutubeSongProcessor();
+            case SOUNDCLOUD -> new SoundcloudSongProcessor();
+            default -> throw new IllegalArgumentException("Unexpected value: " + streamingsEnum);
+        };
     }
 }
