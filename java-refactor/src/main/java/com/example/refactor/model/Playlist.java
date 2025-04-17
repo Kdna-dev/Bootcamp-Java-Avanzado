@@ -25,7 +25,15 @@ public class Playlist {
 
     public void printSongs() {
         songs.stream()
-            .forEach(song -> LOGGER.info("{} - {} - {} - {} - {}",
+            .forEach(song -> LOGGER.info(
+                """
+                    Song Details:
+                    ID: {}
+                    Name: {}
+                    Artist: {}
+                    Album: {}
+                    Release Date: {}
+                """,
                 song.getId(),
                 song.getName(),
                 song.getArtistsNames(),
