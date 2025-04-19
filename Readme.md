@@ -5,11 +5,17 @@ Se realizo un fork del proyecto original de [Codigo Facilito Refactor](https://g
 
 
 ## ✨ Implementaciones Principales
+
+### Refactorización
 - Patron Factory y Strategy, para mejorar la escalabilidad y poder utilizar otras fuentes de playlists.
 - Patron Builder en los modelos.
 - Ajustes en el modelado de datos, se separa el contenido de Song.java en varias clases segun su funcionalidad.
 - Se cambia la clase SongProcessor por SpotifySongProcessor.java, se utiliza el patron Strategy para poder utilizar otras fuentes de playlists.
 - Se subdivide la funcionalidad de SpotifySongProcessor.java, se separa en distintos metodos para lograr una mejor atomicidad.
+
+### Actualizacion a Java 23
+- Se utilizo Pattern Matching en SongProcessorFactory para mejorar la legibilidad del codigo.
+- Y se utilizo Text Blocks en Playlist en el metodo printSongs para mejorar la legibilidad tambien.
 
 
 ## 🛠️ Tecnologías Utilizadas
@@ -42,6 +48,15 @@ mvn clean compile
 mvn exec:java
 ```
 
+Con estos pasos anteriores ya podras ejecutar la aplicacion y ver los resultados de la refactorizacion.
+
+Para visualizar las implementaciones de codigo java moderno debes moverte a la rama refactor-to-java-23 y volver a compilar y ejecutar la aplicacion.
+
+```
+git checkout refactor-to-java-23
+```
+
+Link de la rama: [Refactor to Java 23](https://github.com/Kdna-dev/Bootcamp-Java-Avanzado/tree/refactor-to-java-23)
 
 
 
